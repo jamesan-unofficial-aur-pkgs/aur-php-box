@@ -3,8 +3,9 @@
 # Please report issues at https://github.com/jojosch/pkgbuilds
 
 pkgname=php-box
+_pkgname=${pkgname#php-}
 pkgver=2.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="An application for building and managing Phars"
 url="https://github.com/box-project/box2"
 license=("MIT")
@@ -12,7 +13,7 @@ arch=("any")
 depends=("php>=5.3.3")
 install="${pkgname}.install"
 source=(
-  "https://github.com/box-project/box2/releases/download/${pkgver}/box-${pkgver}.phar"
+  "https://github.com/box-project/box2/releases/download/${pkgver}/${_pkgname}-${pkgver}.phar"
   "https://raw.github.com/box-project/box2/${pkgver}/LICENSE"
 )
 sha256sums=(
@@ -22,7 +23,7 @@ sha256sums=(
 
 package() {
   install -D -m644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  install -D -m755 "${srcdir}/box-${pkgver}.phar" "${pkgdir}/usr/share/webapps/bin/${pkgname}.phar"
+  install -D -m755 "${srcdir}/${_pkgname}-${pkgver}.phar" "${pkgdir}/usr/share/webapps/bin/${_pkgname}.phar"
   install -d "${pkgdir}/usr/bin"
-  ln -s "/usr/share/webapps/bin/${pkgname}.phar" "${pkgdir}/usr/bin/${pkgname}"
+  ln -s "/usr/share/webapps/bin/${_pkgname}.phar" "${pkgdir}/usr/bin/${_pkgname}"
 }
